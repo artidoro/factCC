@@ -267,6 +267,12 @@ def evaluate(args, model, tokenizer, prefix=""):
                 logger.info("  %s = %s", key, str(result[key]))
                 writer.write("%s = %s\n" % (key, str(result[key])))
 
+        output_eval_file = os.path.join(eval_output_dir, "eval_predictions.txt")
+        logger.info("***** Writing Predictions to File *****")
+        with open(output_eval_file, "w") as writer:
+            for pred_idx, pred in enumerate(preds):
+                writer.write('{}\t{}\n'.format(pred, out_label_ids[pred_idx]))
+
     return results
 
 
